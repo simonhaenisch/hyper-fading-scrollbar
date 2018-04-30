@@ -1,6 +1,6 @@
 # Hyper Fading Scrollbar
 
-![Screen capture of the fading scrollbar Hyper plugin](https://file-envrancwms.now.sh)
+![Screen capture of the fading scrollbar Hyper plugin](https://file-uvyxnepufu.now.sh)
 
 A hyper plugin that fades the scrollbar when not in use.
 
