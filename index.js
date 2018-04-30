@@ -7,7 +7,7 @@ const SCROLLBAR_ACTIVE_CLASS = 'scrollbar-active';
 // Add a toggleable 'active' class to the scrollbar.
 
 exports.decorateConfig = config => {
-	const color = config.scrollbarColor || config.borderColor || 'white';
+	const color = config.scrollbarColor || config.borderColor || 'gray';
 	const dimBase = colorString.get.rgb(color);
 	const dim = [dimBase[0], dimBase[1], dimBase[2], 0.1];
 
