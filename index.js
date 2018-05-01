@@ -9,14 +9,15 @@ const SCROLLBAR_ACTIVE_CLASS = 'scrollbar-active';
 exports.decorateConfig = config => {
 	const color = config.scrollbarColor || config.borderColor || 'gray';
 	const dimBase = colorString.get.rgb(color);
-	const dim = [dimBase[0], dimBase[1], dimBase[2], 0.3];
+	const opacity = typeof config.scrollbarOpacity === 'number' ? config.scrollbarOpacity : 0.3;
+	const dimColor = [dimBase[0], dimBase[1], dimBase[2], opacity];
 
 	return Object.assign({}, config, {
 		css: `
 			${config.css || ''}
 
 			.xterm-viewport::-webkit-scrollbar-thumb {
-				background-color: ${colorString.to.rgb(dim)};
+				background-color: ${colorString.to.rgb(dimColor)};
 			}
 
 			.xterm-viewport::-webkit-scrollbar-thumb:hover,

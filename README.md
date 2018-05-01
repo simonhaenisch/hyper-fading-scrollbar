@@ -14,14 +14,15 @@ _You may want to make sure that your color theme package comes first in the `con
 
 ## Options
 
-You can customize the scrollbar color by using the `scrollbarColor` setting in your `.hyper.js` config:
+You can customize the scrollbar color by using the `scrollbarColor` and `scrollbarOpacity` settings in your `.hyper.js` config:
 
 ```js
 module.exports = {
   config: {
     // ...
 
-    scrollbarColor: 'tomato',
+    scrollbarColor: 'tomato', // any valid css color
+    scrollbarOpacity: 0.1, // value between 0 and 1
   }
 }
 ```
