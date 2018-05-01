@@ -28,30 +28,58 @@ exports.decorateConfig = config => {
 };
 
 // --
-// Add a scroll event to each term viewport.
+// Add a scroll event handler to each term's viewport.
 
-const timers = {};
+exports.decorateTerm = (Term, { React }) => {
+	return class extends React.Component {
+		constructor(props, context) {
+			super(props, context);
+			this.term = null;
+			this.scrollHandler = null;
+			this.timer = null;
+			this.onDecorated = this.onDecorated.bind(this);
+		}
 
-exports.getTermProps = (uid, parentProps, props) => {
-	if (props.term && uid) {
-		const viewport = props.term.viewport._viewportElement;
-		const scrollArea = props.term.viewport._scrollArea;
+		getScrollHandler() {
+			return event => {
+				const terminal = this.term.term;
+				const scrolledToEnd = terminal.buffer.ybase === terminal.buffer.ydisp;
 
-		if (!viewport.onscroll) {
-			viewport.onscroll = event => {
-				const offsetBottom = viewport.scrollTop + parseInt(window.getComputedStyle(viewport).height);
-				const scrolledToTop = offsetBottom === scrollArea.scrollHeight;
-
-				if (!scrolledToTop) {
-					clearTimeout(timers[uid]);
-					viewport.classList.add(SCROLLBAR_ACTIVE_CLASS);
-					timers[uid] = setTimeout(() => {
-						viewport.classList.remove(SCROLLBAR_ACTIVE_CLASS);
+				if (!scrolledToEnd) {
+					clearTimeout(this.timer);
+					terminal._viewportElement.classList.add(SCROLLBAR_ACTIVE_CLASS);
+					this.timer = setTimeout(() => {
+						terminal._viewportElement.classList.remove(SCROLLBAR_ACTIVE_CLASS);
 					}, 300);
 				}
 			};
 		}
-	}
 
-	return props;
+		onDecorated(term) {
+			this.term = term;
+			if (this.props.onDecorated) {
+				// propagate to HOC chain
+				this.props.onDecorated(term);
+			}
+
+			if (this.term) {
+				if (this.term.term._viewportElement) {
+					this.scrollHandler = this.getScrollHandler();
+					this.term.term._viewportElement.addEventListener('scroll', this.scrollHandler);
+				} else {
+					console.warn("hyper-fading-scrollbar: could not access _viewportElement, can't attach scroll handler.");
+				}
+			}
+		}
+
+		componentWillUnmount() {
+			if (this.term.term._viewportElement) {
+				this.term.term._viewportElement.removeEventListener('scroll', this.scrollHandler);
+			}
+		}
+
+		render() {
+			return React.createElement(Term, Object.assign({}, this.props, { onDecorated: this.onDecorated }));
+		}
+	};
 };
