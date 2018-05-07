@@ -1,6 +1,6 @@
 {
 	"name": "hyper-fading-scrollbar",
-	"version": "1.1.1",
+	"version": "1.1.2",
 	"description": "A hyper plugin that fades the scrollbar when not in use.",
 	"main": "index.js",
 	"scripts": {
