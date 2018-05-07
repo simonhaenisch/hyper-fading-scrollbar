@@ -14,14 +14,14 @@
 	],
 	"author": "Simon Haenisch (https://simonhaenisch.com)",
 	"license": "Unlicense",
-	"dependencies": {
-		"color-string": "1.5.2"
-	},
 	"prettier": {
 		"printWidth": 120,
 		"singleQuote": true,
 		"trailingComma": "all",
 		"useTabs": true
+	},
+	"dependencies": {
+		"color-string": "1.5.2"
 	},
 	"devDependencies": {
 		"tap-dot": "1.0.5",
