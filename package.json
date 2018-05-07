@@ -1,30 +1,22 @@
 {
-  "name": "hyper-fading-scrollbar",
-  "version": "1.1.0",
-  "description": "A hyper plugin that fades the scrollbar when not in use.",
-  "main": "index.js",
-  "repository": "simonhaenisch/hyper-fading-scrollbar",
-  "keywords": [
-    "hyper",
-    "hyper-plugin"
-  ],
-  "author": "Simon Haenisch (https://simonhaenisch.com)",
-  "license": "Unlicense",
-  "dependencies": {
-    "color-string": "1.5.2"
-  },
-  "prettier": {
-    "printWidth": 120,
-    "singleQuote": true,
-    "trailingComma": "all",
-    "useTabs": true,
-    "overrides": [
-      {
-        "files": "*.json",
-        "options": {
-          "useTabs": false
-        }
-      }
-    ]
-  }
+	"name": "hyper-fading-scrollbar",
+	"version": "1.1.0",
+	"description": "A hyper plugin that fades the scrollbar when not in use.",
+	"main": "index.js",
+	"repository": "simonhaenisch/hyper-fading-scrollbar",
+	"keywords": [
+		"hyper",
+		"hyper-plugin"
+	],
+	"author": "Simon Haenisch (https://simonhaenisch.com)",
+	"license": "Unlicense",
+	"dependencies": {
+		"color-string": "1.5.2"
+	},
+	"prettier": {
+		"printWidth": 120,
+		"singleQuote": true,
+		"trailingComma": "all",
+		"useTabs": true
+	}
 }
