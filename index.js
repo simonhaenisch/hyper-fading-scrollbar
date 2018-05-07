@@ -6,10 +6,16 @@ const SCROLLBAR_ACTIVE_CLASS = 'scrollbar-active';
 // Change scrollbar color to a dim version.
 // Add a toggleable 'active' class to the scrollbar.
 
+const getColor = config => config.scrollbarColor || config.borderColor || 'gray';
+const getOpacity = config => (typeof config.scrollbarOpacity === 'number' ? config.scrollbarOpacity : 0.3);
+
+exports.getColor = getColor;
+exports.getOpacity = getOpacity;
+
 exports.decorateConfig = config => {
-	const color = config.scrollbarColor || config.borderColor || 'gray';
+	const color = getColor(config);
 	const dimBase = colorString.get.rgb(color);
-	const opacity = typeof config.scrollbarOpacity === 'number' ? config.scrollbarOpacity : 0.3;
+	const opacity = getOpacity(config);
 	const dimColor = [dimBase[0], dimBase[1], dimBase[2], opacity];
 
 	return Object.assign({}, config, {
