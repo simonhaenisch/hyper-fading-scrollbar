@@ -18,5 +18,9 @@
 		"singleQuote": true,
 		"trailingComma": "all",
 		"useTabs": true
+	},
+	"devDependencies": {
+		"tap-dot": "1.0.5",
+		"tape": "4.9.0"
 	}
 }
