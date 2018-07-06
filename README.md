@@ -2,7 +2,7 @@
 
 [![NPM version](https://img.shields.io/npm/v/hyper-fading-scrollbar.svg)](https://www.npmjs.com/hyper-fading-scrollbar) [![NPM download count](https://img.shields.io/npm/dm/hyper-fading-scrollbar.svg)](https://www.npmjs.com/hyper-fading-scrollbar)
 
-![Screen capture of the fading scrollbar Hyper plugin](https://file-fudzfpukqr.now.sh/kapture.gif)
+![Screen capture of the fading scrollbar Hyper plugin](https://file-ayhubmczmh.now.sh/kapture.gif)
 
 A hyper plugin that fades the scrollbar when not in use.
 
