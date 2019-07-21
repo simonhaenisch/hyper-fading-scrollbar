@@ -28,3 +28,7 @@ module.exports = {
   }
 }
 ```
+
+## Compatibility
+
+This plugin has been updated to work with Hyper v3. To use it with v2, please use version 1.1.4 of this plugin.
