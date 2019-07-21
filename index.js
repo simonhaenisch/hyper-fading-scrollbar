@@ -41,47 +41,54 @@ exports.decorateTerm = (Term, { React }) => {
 	return class extends React.Component {
 		constructor(props, context) {
 			super(props, context);
-			this.term = null;
-			this.scrollHandler = null;
+
+			this.terms = null;
+			this.viewport = null;
 			this.timer = null;
+
 			this.onDecorated = this.onDecorated.bind(this);
+			this.scrollHandler = this.scrollHandler.bind(this);
 		}
 
-		getScrollHandler() {
-			return event => {
-				const terminal = this.term.term;
-				const scrolledToEnd = terminal.buffer.ybase === terminal.buffer.ydisp;
-
-				if (!scrolledToEnd) {
-					clearTimeout(this.timer);
-					terminal._viewportElement.classList.add(SCROLLBAR_ACTIVE_CLASS);
-					this.timer = setTimeout(() => {
-						terminal._viewportElement.classList.remove(SCROLLBAR_ACTIVE_CLASS);
-					}, 300);
-				}
-			};
-		}
-
-		onDecorated(term) {
-			this.term = term;
+		onDecorated(terms) {
 			if (this.props.onDecorated) {
-				// propagate to HOC chain
-				this.props.onDecorated(term);
+				this.props.onDecorated(terms); // propagate to HOC chain
 			}
 
-			if (this.term) {
-				if (this.term.term._viewportElement) {
-					this.scrollHandler = this.getScrollHandler();
-					this.term.term._viewportElement.addEventListener('scroll', this.scrollHandler);
-				} else {
-					console.warn("hyper-fading-scrollbar: could not access _viewportElement, can't attach scroll handler.");
-				}
+			if (!terms) {
+				return;
 			}
+
+			this.terms = terms;
+
+			const viewport = this.terms.term.element.querySelector('.xterm-viewport');
+
+			if (!viewport) {
+				return console.warn("hyper-fading-scrollbar: could not find xterm viewport, can't attach scroll handler.");
+			}
+
+			this.viewport = viewport;
+			this.viewport.addEventListener('scroll', this.scrollHandler);
+		}
+
+		scrollHandler(event) {
+			const terminal = this.terms.term;
+			const scrolledToEnd = terminal._core.buffer.ybase === terminal._core.buffer.ydisp;
+
+			if (scrolledToEnd) {
+				return;
+			}
+
+			clearTimeout(this.timer);
+
+			this.viewport.classList.add(SCROLLBAR_ACTIVE_CLASS);
+
+			this.timer = setTimeout(() => this.viewport.classList.remove(SCROLLBAR_ACTIVE_CLASS), 300);
 		}
 
 		componentWillUnmount() {
-			if (this.term.term._viewportElement) {
-				this.term.term._viewportElement.removeEventListener('scroll', this.scrollHandler);
+			if (this.viewport) {
+				this.viewport.removeEventListener('scroll', this.scrollHandler);
 			}
 		}
 
